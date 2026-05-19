@@ -1,0 +1,32 @@
+# Streamlit Configuration for AirFlow DSS
+
+[theme]
+# Primary brand color
+primaryColor = "#6b8e65"
+
+# Background colors
+backgroundColor = "#fdfbf7"
+secondaryBackgroundColor = "#f5ebe0"
+
+# Text color
+textColor = "#2d5016"
+
+# Font family
+font = "sans serif"
+
+[server]
+# Server settings
+headless = true
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+
+[browser]
+# Browser settings
+gatherUsageStats = false
+serverAddress = "localhost"
+
+[runner]
+# Performance settings
+magicEnabled = true
+fastReruns = true
