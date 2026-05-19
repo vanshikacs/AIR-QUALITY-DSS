@@ -1,314 +1,380 @@
-# AirFlow Decision Support System
+# 🌿 Air Quality DSS
 
-**Professional air quality exposure risk assessment and timing optimization tool**
+> A professional air-quality decision support system that transforms real-time AQI data into personalized exposure insights, safer outdoor timing recommendations, and trend intelligence.
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-FF4B4B.svg)](https://streamlit.io/)
+<p align="center">
+  <a href="https://airflowdss.streamlit.app/"><strong>🚀 Live Demo: airflowdss.streamlit.app</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://airflowdss.streamlit.app/">
+    <img src="https://img.shields.io/badge/Live%20App-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Live App">
+  </a>
+  <img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Framework-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/Visualization-Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white" alt="Plotly">
+</p>
 
 ---
 
 ## Overview
 
-AirFlow DSS is a professional decision-support system that transforms raw environmental monitoring data into actionable insights for exposure risk management. Built with clean architecture principles, it demonstrates production-ready software engineering, applied analytics, and user-centered design.
+**Air Quality DSS** is a decision-support application for air-quality awareness, exposure risk assessment, and safer activity planning. Instead of only displaying raw AQI values, the system interprets environmental data through a user-centered lens by combining air quality, outdoor duration, activity intensity, and sensitivity profile.
 
-### What It Does
+The goal is to make air-quality information more practical, explainable, and actionable for everyday decisions.
 
-- **Personalized Risk Assessment:** Calculates exposure scores combining environmental conditions with individual activity patterns
-- **Trend Analysis:** Detects patterns and changes in air quality across searches using statistical methods
-- **Time Optimization:** Identifies lower-risk time windows for outdoor activities
-- **Data Quality Assessment:** Evaluates and communicates reliability of source data
+---
 
-### What It's Not
+## Key Features
 
-- Not a simple visualization dashboard
-- Not an awareness/activism tool
-- Not using black-box ML models
-- Not making medical diagnoses
+### Personalized Exposure Risk Assessment
+Calculates an exposure score by combining AQI level with user-specific factors such as outdoor hours, activity level, and pollution sensitivity.
+
+### Time Window Optimization
+Suggests lower-risk outdoor time windows based on typical urban pollution patterns and current AQI severity.
+
+### Trend Intelligence
+Tracks searched locations and identifies patterns such as rising, falling, stable, or volatile AQI behavior after multiple searches.
+
+### Data Quality Assessment
+Evaluates the reliability, freshness, and completeness of available AQI data so users understand how confident they should be in the result.
+
+### Multi-Page Streamlit Interface
+Includes dedicated pages for home search, exposure analysis, time optimization, trend intelligence, HTML showcase, and system information.
+
+### Clean Modular Architecture
+Built using a layered structure with separate data, analysis, UI, utility, and state-management modules.
+
+---
+
+## Live Application
+
+The deployed version is available here:
+
+**🔗 [https://airflowdss.streamlit.app/](https://airflowdss.streamlit.app/)**
 
 ---
 
 ## System Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────┐
-│         UI Layer (Streamlit)                │
-│  - Page routing and rendering               │
-│  - User interactions                        │
-│  - Visualization components                 │
+│              UI Layer                       │
+│  Streamlit pages, reusable components,      │
+│  visualizations, navigation, interactions   │
 └──────────────────┬──────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────┐
-│         Analysis Layer                      │
-│  - ExposureAnalyzer                         │
-│  - TrendAnalyzer                            │
-│  - TimeWindowOptimizer                      │
-│  - ProfileManager                           │
+│           Analysis Layer                    │
+│  Exposure scoring, trend analysis,          │
+│  timing optimization, profile logic         │
 └──────────────────┬──────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────┐
-│         Data Layer                          │
-│  - AQIAPIClient                             │
-│  - DataQualityAssessor                      │
-│  - Data models (AQIData, UserProfile)       │
+│              Data Layer                     │
+│  WAQI API client, data models,              │
+│  quality assessment, response handling      │
 └─────────────────────────────────────────────┘
 ```
-
-**Design Principles:**
-- Separation of concerns across layers
-- Single responsibility per module
-- Type-safe data models
-- Centralized state management
-- Defensive error handling
 
 ---
 
 ## Project Structure
 
-```
-airflow-dss/
-├── app.py                      # Clean entry point
-├── requirements.txt            # Dependencies
-├── .streamlit/config.toml     # Configuration
+```text
+AIR-QUALITY-DSS/
+├── app.py                         # Main Streamlit entry point and page router
+├── index.html                     # HTML showcase interface
+├── requirements.txt               # Python dependencies
+├── README.md                      # Project documentation
+├── .gitignore                     # Files excluded from GitHub
 │
-├── src/                        # Source code
-│   ├── data/                   # DATA LAYER
-│   │   ├── api_client.py      # API integration
-│   │   ├── quality.py         # Quality assessment
-│   │   └── models.py          # Data models
-│   │
-│   ├── analysis/               # ANALYSIS LAYER
-│   │   ├── exposure.py        # Risk scoring
-│   │   ├── trends.py          # Trend analysis
-│   │   ├── optimization.py    # Time windows
-│   │   └── profiles.py        # Profile management
-│   │
-│   ├── ui/                     # UI LAYER
-│   │   ├── pages/             # Page modules
-│   │   ├── components.py      # Reusable components
-│   │   └── visualizations.py  # Charts/graphs
-│   │
-│   ├── utils/                  # UTILITIES
-│   │   ├── constants.py       # Configuration
-│   │   └── helpers.py         # Helper functions
-│   │
-│   └── state.py               # State management
+├── .streamlit/
+│   └── config.toml                # Streamlit theme/configuration
 │
-├── docs/                       # Documentation
+├── src/
+│   ├── data/
+│   │   ├── api_client.py          # WAQI API integration
+│   │   ├── models.py              # AQI and profile data models
+│   │   └── quality.py             # Data quality assessment
+│   │
+│   ├── analysis/
+│   │   ├── exposure.py            # Exposure risk scoring
+│   │   ├── optimization.py        # Outdoor timing recommendations
+│   │   ├── profiles.py            # User profile logic
+│   │   └── trends.py              # Trend intelligence
+│   │
+│   ├── ui/
+│   │   ├── pages/                 # Individual Streamlit pages
+│   │   ├── components.py          # Reusable UI components
+│   │   └── visualizations.py      # Plotly charts and graphs
+│   │
+│   ├── utils/
+│   │   ├── constants.py           # Central configuration and thresholds
+│   │   └── helpers.py             # Helper functions
+│   │
+│   └── state.py                   # Streamlit session-state management
+│
+├── docs/
 │   ├── ARCHITECTURE.md
 │   └── API.md
 │
-└── tests/                      # Unit tests
+└── tests/
     ├── test_exposure.py
     └── test_trends.py
 ```
 
 ---
 
-## Installation
+## Technology Stack
 
-### Prerequisites
-- Python 3.8+
-- pip package manager
-
-### Setup
-
-```bash
-# Clone repository
-git clone https://github.com/yourusername/airflow-dss.git
-cd airflow-dss
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run application
-streamlit run app.py
-```
-
-### Configuration
-
-Edit `.streamlit/config.toml` for theme customization.
+| Area | Tools |
+|---|---|
+| Frontend/App Framework | Streamlit |
+| Language | Python |
+| Data Fetching | Requests |
+| Data Processing | Pandas, NumPy |
+| Visualizations | Plotly, Folium |
+| API Source | World Air Quality Index API |
+| Deployment | Streamlit Community Cloud |
 
 ---
 
-## Usage
+## Installation and Local Setup
 
-### Basic Flow
+### 1. Clone the repository
 
-1. **Search Location:** Enter city name
-2. **View AQI:** See current air quality and data quality assessment
-3. **Analyze Exposure:** Calculate personalized risk score based on your profile
-4. **Optimize Timing:** Identify lower-risk time windows
-5. **Track Trends:** After 3+ searches, view statistical insights
+```bash
+git clone https://github.com/vanshikacs/AIR-QUALITY-DSS.git
+cd AIR-QUALITY-DSS
+```
 
-### Profile Configuration
+### 2. Create a virtual environment
 
-Profiles allow personalization based on:
-- **Outdoor Hours:** Time spent outside daily (0-12 hours)
-- **Activity Level:** Intensity of physical activity (low/moderate/high)
-- **Sensitivity:** Vulnerability to pollution (normal/sensitive/respiratory)
+```bash
+python -m venv venv
+```
 
-Create multiple profiles for different scenarios (e.g., "Commuter", "Athlete", "Sensitive").
+### 3. Activate the virtual environment
+
+On Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+On macOS/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Add your WAQI API token locally
+
+Create a file:
+
+```text
+.streamlit/secrets.toml
+```
+
+Add:
+
+```toml
+WAQI_API_TOKEN = "your_waqi_api_token_here"
+```
+
+> Do not commit `secrets.toml` to GitHub.
+
+### 6. Run the application
+
+```bash
+streamlit run app.py
+```
+
+Open the local app at:
+
+```text
+http://localhost:8501
+```
+
+---
+
+## Deployment
+
+This project can be deployed on **Streamlit Community Cloud**.
+
+### Streamlit Cloud settings
+
+```text
+Repository: vanshikacs/AIR-QUALITY-DSS
+Branch: main
+Main file path: app.py
+```
+
+### Add secrets in Streamlit Cloud
+
+Go to:
+
+```text
+Manage app → Settings → Secrets
+```
+
+Paste:
+
+```toml
+WAQI_API_TOKEN = "your_waqi_api_token_here"
+```
+
+Save and reboot the app.
+
+---
+
+## Usage Flow
+
+1. Open the live app or run it locally.
+2. Go to the **Home** page.
+3. Search for a city such as `delhi`, `lucknow`, `mumbai`, or `kanpur`.
+4. Review current AQI and data quality.
+5. Configure your exposure profile from the sidebar.
+6. Open **Exposure Analysis** to view personalized risk.
+7. Open **Time Optimization** to identify safer outdoor windows.
+8. Search 3 or more locations to unlock **Trend Intelligence**.
 
 ---
 
 ## Methodology
 
-### Exposure Scoring
+### Exposure Score
 
-**Formula:**
-```
-Score = (AQI/100) × Hours × Activity_Mult × Sensitivity_Mult
-Normalized to 0-100 scale
+```text
+Exposure Score = (AQI / 100) × Outdoor Hours × Activity Multiplier × Sensitivity Multiplier
 ```
 
-**Components:**
-- **AQI Factor:** Environmental pollution level (capped at 5.0)
-- **Hours:** Time spent outdoors
-- **Activity Multiplier:** 1.0 (low), 1.3 (moderate), 1.6 (high)
-- **Sensitivity Multiplier:** 1.0 (normal), 1.4 (sensitive), 1.7 (respiratory)
+The final score is normalized to a 0–100 scale for easier interpretation.
 
-**Risk Levels:**
-- 0-20: Low Risk
-- 20-40: Moderate Risk
-- 40-60: Elevated Risk
-- 60-100: High Risk
+### Activity Multipliers
 
-### Trend Analysis
+| Activity Level | Multiplier |
+|---|---:|
+| Low | 1.0 |
+| Moderate | 1.3 |
+| High | 1.6 |
 
-Uses lightweight statistical methods:
-- **Direction Analysis:** Compares recent vs. historical averages (±20% threshold)
-- **Volatility Measurement:** Standard deviation calculation
-- **Extremes Detection:** Identifies peak and minimum values
-- **Moving Averages:** 3-point smoothing for visualization
+### Sensitivity Multipliers
 
-### Time Window Optimization
+| Sensitivity Type | Multiplier |
+|---|---:|
+| Normal | 1.0 |
+| Sensitive | 1.4 |
+| Respiratory | 1.7 |
 
-Pattern-based estimation using typical urban pollution cycles:
-- **Early Morning (5-7 AM):** ~70% of current AQI
-- **Post Rush-Hour (9-11 AM):** ~85% of current AQI
-- **Late Evening (10 PM-12 AM):** ~80% of current AQI
+### Risk Levels
 
-**Note:** Based on typical patterns, not location-specific forecasts.
+| Score Range | Interpretation |
+|---|---|
+| 0–20 | Low Risk |
+| 20–40 | Moderate Risk |
+| 40–60 | Elevated Risk |
+| 60–100 | High Risk |
 
 ---
 
-## Assumptions & Limitations
+## Data Quality Logic
 
-### Assumptions
-- Linear relationship between AQI and health risk
-- Activity level correlates with respiration rate
-- Sensitivity factors based on epidemiological guidelines
-- Continuous outdoor exposure during specified hours
+The system considers:
 
-### Limitations
-- Does not account for individual medical history
-- Indoor air quality not separately modeled
-- Mask usage not factored into calculations
-- Time windows based on patterns, not real-time forecasts
-- Limited to available API data coverage
+- API response availability
+- AQI value validity
+- Pollutant data completeness
+- Station metadata availability
+- Data recency where available
 
-### Not a Substitute For
-- Official environmental monitoring agencies
-- Medical advice from healthcare professionals
-- Emergency health services
-- Local health authority guidelines
+This helps communicate whether an AQI result should be treated as highly reliable or interpreted with caution.
 
 ---
 
-## Technical Details
+## Assumptions and Limitations
 
-### Technology Stack
-- **Framework:** Streamlit 1.28+
-- **Data Processing:** Pandas, NumPy
-- **Visualization:** Plotly
-- **Mapping:** Folium
-- **API:** WAQI (World Air Quality Index)
-- **Language:** Python 3.8+
+Air Quality DSS is designed as a decision-support and educational tool. It does not replace official environmental agencies, local public-health advisories, or medical advice.
 
-### Code Quality
-- Type hints throughout
-- Comprehensive docstrings
-- Modular, testable design
-- Defensive error handling
-- Clean separation of concerns
+Current limitations include:
 
-### Data Sources
-- **Provider:** World Air Quality Index (WAQI) Project
-- **Coverage:** 12,000+ monitoring stations in 1,000+ cities
-- **Update Frequency:** Varies by location (typically 1-6 hours)
-- **Attribution:** Data © WAQI Project, EPA, local agencies
+- Indoor air quality is not modeled separately.
+- Mask usage is not included in exposure calculations.
+- Time-window suggestions are pattern-based, not real-time forecasts.
+- API coverage depends on available WAQI monitoring stations.
+- Individual medical history is not used in the model.
 
 ---
 
-## Development
+## Code Quality Highlights
 
-### Running Tests
-```bash
-pytest tests/
-```
-
-### Adding New Features
-
-1. **Data Layer:** Add to `src/data/` if fetching/processing data
-2. **Analysis Layer:** Add to `src/analysis/` for calculations
-3. **UI Layer:** Add to `src/ui/pages/` for new pages
-4. **Update:** Modify `app.py` routing if adding pages
-
-### Code Style
-- Follow PEP 8
-- Use type hints
-- Write docstrings
-- Keep functions focused (single responsibility)
-
----
-
-## Why This Structure?
-
-### For Internships & Portfolios
-
-**Software Engineering:**
-- Clean architecture (layered design)
-- Proper module organization
+- Layered architecture
+- Modular and reusable components
 - Type-safe data models
-- Testable components
-
-**Applied Analytics:**
+- Centralized constants and configuration
+- Session-state management
+- Defensive error handling
 - Transparent calculations
-- Statistical methods
-- Data quality awareness
-- Practical utility
+- Portfolio-friendly documentation
 
-**Product Thinking:**
-- User-centered design
-- Decision-focused features
-- Clear communication
-- Handles real-world complexity
+---
+
+## Why This Project Matters
+
+Air quality affects health, productivity, mobility, and daily planning. Most dashboards show numbers, but users often need answers to practical questions:
+
+- Is it safe to go outside right now?
+- How risky is outdoor activity for me?
+- What time would be better for a walk or commute?
+- Is air quality improving or worsening?
+- How reliable is this AQI reading?
+
+Air Quality DSS focuses on turning environmental data into clear, explainable decisions.
+
+---
+
+## Future Improvements
+
+- 24–72 hour AQI forecasting
+- Satellite-based pollution layer integration
+- Personalized health recommendation engine
+- Historical city-wise AQI dashboard
+- Push alerts for severe AQI conditions
+- More granular station selection
+- Mobile-first UI enhancements
+- Exportable reports for analysis
 
 ---
 
 ## License
 
-MIT License - See LICENSE file
+This project is released under the MIT License.
 
 ---
 
 ## Author
 
-[Your Name]  
-[Your Email]  
-[GitHub](https://github.com/yourusername)  
-[LinkedIn](https://linkedin.com/in/yourprofile)
+**Vanshika Saxena**  
+B.Tech Computer Science Engineering  
+GitHub: [@vanshikacs](https://github.com/vanshikacs)
 
 ---
 
 ## Acknowledgments
 
-- WAQI Project for air quality data API
-- Streamlit for the framework
-- Open source community
+- World Air Quality Index Project for AQI data access
+- Streamlit for rapid interactive app development
+- Open-source Python ecosystem for analytics and visualization tools
 
 ---
 
-**Built to demonstrate professional software engineering and applied analytics**
-
-*Last updated: December 2024*
+<p align="center">
+  <strong>Built with clean architecture, applied analytics, and user-centered environmental decision support.</strong>
+</p>
